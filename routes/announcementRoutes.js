@@ -13,7 +13,7 @@ router.get('/', announcementController.getAllAnnouncements);
 
 // 🔐 Admin: Post new announcement
 router.post(
-  '/',
+  '/announcements',
   authMiddleware,
   adminOnly,
   validateRequest(['title', 'message']),
