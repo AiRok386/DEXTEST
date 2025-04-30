@@ -43,6 +43,7 @@ exports.approveWithdrawal = async (req, res) => {
     res.json({ message: `Withdrawal ${status}`, withdrawal });
   } catch (err) {
     res.status(500).json({ message: err.message });
+res.json({ message: 'Admin dashboard works' });
   }
 };
 
