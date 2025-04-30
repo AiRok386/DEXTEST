@@ -25,6 +25,11 @@ exports.getDashboardStats = async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   };
+// ✅ This MUST exist:
+exports.getDashboard = async (req, res) => {
+  res.json({ message: 'Dashboard data' });
+};
+
 
   // 🪙 List All Tokens
 exports.listTokens = async (req, res) => {
