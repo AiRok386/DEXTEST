@@ -13,17 +13,25 @@ const authMiddleware = require('../middleware/authMiddleware');
 const adminOnly = require('../middleware/adminOnly');
 const validateRequest = require('../middleware/validateRequest');
 
-// 📊 Dashboard
+// 📊 Admin Dashboard
 router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 
 // 📈 Token Listings
+router.get('/listings', authMiddleware, adminOnly, listingController.getAllListings);
 router.post('/listings', authMiddleware, adminOnly, validateRequest(['name', 'symbol']), listingController.createListing);
 router.put('/listings/:id', authMiddleware, adminOnly, listingController.updateListing);
 router.patch('/listings/:id/approve', authMiddleware, adminOnly, listingController.approveListing);
 router.patch('/listings/:id/reject', authMiddleware, adminOnly, listingController.rejectListing);
 
 // 📢 Announcements
-router.post('/announcements', authMiddleware, adminOnly, validateRequest(['title', 'message']), announcementController.createAnnouncement);
+router.post(
+  '/announcements',
+  authMiddleware,
+  adminOnly,
+  validateRequest(['title', 'message']),
+  announcementController.createAnnouncement
+);
+router.get('/announcements', authMiddleware, adminOnly, announcementController.getAllAnnouncements);
 router.delete('/announcements/:id', authMiddleware, adminOnly, announcementController.deleteAnnouncement);
 
 // 💸 Wallets & Withdrawals
