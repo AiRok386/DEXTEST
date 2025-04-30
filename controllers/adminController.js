@@ -13,7 +13,9 @@ exports.getDashboardStats = async (req, res) => {
       const totalVolume = await Token.aggregate([{ $group: { _id: null, volume: { $sum: '$volume' } } }]);
       const activeTrades = 0; // Placeholder: Replace with actual trades count
       const earnings = 0; // Placeholder: Add logic for commission/fees
-  
+      {
+  res.json({ message: 'Admin dashboard is live' });
+};
       res.json({
         totalUsers,
         pendingKYC,
