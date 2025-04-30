@@ -15,7 +15,7 @@ const validateRequest = require('../middleware/validateRequest');
 router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 
 // 📈 Token Listings
-router.get('/listings', authMiddleware, adminOnly, listingController.getAllListings);
+router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 router.post('/listings', authMiddleware, adminOnly, validateRequest(['name', 'symbol']), listingController.createListing);
 router.put('/listings/:id', authMiddleware, adminOnly, listingController.updateListing);
 router.patch('/listings/:id/approve', authMiddleware, adminOnly, listingController.approveListing);
