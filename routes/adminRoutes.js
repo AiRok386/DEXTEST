@@ -23,7 +23,7 @@ router.patch('/listings/:id/reject', authMiddleware, adminOnly, listingControlle
 
 // 📢 Announcements
 router.post('/announcements', authMiddleware, adminOnly, validateRequest(['title', 'message']), announcementController.createAnnouncement);
-router.get('/announcements', authMiddleware, adminOnly, announcementController.getAllAnnouncements);
+
 
 // 💸 Wallets & Withdrawals
 router.get('/wallets', authMiddleware, adminOnly, walletController.getAllWallets);
