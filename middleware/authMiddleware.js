@@ -31,4 +31,9 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
+module.exports = (req, res, next) => {
+  req.user = { id: 'admin123', role: 'admin' }; // simulate logged-in user
+  next();
+};
+
 module.exports = authMiddleware;
