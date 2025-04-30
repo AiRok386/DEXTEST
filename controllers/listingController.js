@@ -28,8 +28,8 @@ exports.applyForListing = async (req, res) => {
 };
 
 // 🔒 ADMIN: view all listing requests
-exports.getListingRequests = async (req, res) => {
-  try {
+exports.getAllListings = async (req, res) => {
+ try {
     const listings = await ListingRequest.find().populate('user', 'email');
     res.json({ listings });
   } catch (err) {
