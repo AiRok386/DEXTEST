@@ -7,22 +7,17 @@ exports.createAnnouncement = async (req, res) => {
   try {
     const { title, message, type } = req.body;
 
-    if (!title || !message) {
-      return res.status(400).json({ message: 'Title and message are required.' });
-    }
-
     const announcement = new Announcement({
       title,
       message,
-      type: type || 'general', // fallback type
+      type: type || 'general', // default type
       createdAt: new Date(),
     });
 
     await announcement.save();
-
     res.status(201).json({ message: 'Announcement posted', announcement });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to post announcement', error: err.message });
+    res.status(500).json({ message: 'Failed to create announcement', error: err.message });
   }
 };
 
@@ -32,7 +27,7 @@ exports.getAllAnnouncements = async (req, res) => {
     const announcements = await Announcement.find().sort({ createdAt: -1 });
     res.status(200).json({ announcements });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to retrieve announcements', error: err.message });
+    res.status(500).json({ message: 'Failed to fetch announcements', error: err.message });
   }
 };
 
@@ -44,7 +39,7 @@ exports.deleteAnnouncement = async (req, res) => {
     if (!deleted) {
       return res.status(404).json({ message: 'Announcement not found' });
     }
-    res.json({ message: 'Announcement deleted' });
+    res.status(200).json({ message: 'Announcement deleted' });
   } catch (err) {
     res.status(500).json({ message: 'Failed to delete announcement', error: err.message });
   }
