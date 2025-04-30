@@ -7,6 +7,7 @@ const Withdrawal = require('../models/Withdrawal');
 
 // 📊 Admin Dashboard
 exports.getDashboardStats = async (req, res) => {
+    res.json({ message: 'Dashboard works' });
     try {
       const totalUsers = await User.countDocuments();
       const pendingKYC = await User.countDocuments({ 'kyc.status': 'pending' });
