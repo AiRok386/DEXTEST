@@ -4,6 +4,7 @@ const Announcement = require('../models/Announcement');
 
 // 🔒 ADMIN: Create a new announcement
 exports.createAnnouncement = async (req, res) => {
+   res.json({ message: 'Announcement posted' });
   try {
     const { title, message, type } = req.body;
 
@@ -15,7 +16,7 @@ exports.createAnnouncement = async (req, res) => {
     });
 
     await announcement.save();
-    res.json({ message: 'Announcement posted', announcement });
+  
   } catch (err) {
     res.status(201).json({ message: 'Announcement posted' });
   }
