@@ -92,12 +92,18 @@ exports.postAnnouncement = async (req, res) => {
 exports.getWithdrawals = async (req, res) => {
     try {
       const withdrawals = await Withdrawal.find();
-      res.json(withdrawals);
+      if (!withdrawal) return res.status(404).json({ message: 'Withdrawal not found' });
+
+       withdrawal.status = 'approved';
+       withdrawal.processedAt = new Date();
+       withdrawal.processedBy = req.user.id;
+
+    await withdrawal.save();
+      res.json(message, 'Withdrawal approved.', withdrawal);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
   };
-  
   // ✅ Approve/Reject Withdrawal
   exports.approveWithdrawal = async (req, res) => {
     try {
