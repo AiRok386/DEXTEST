@@ -1,0 +1,13 @@
+const errorHandler = require('./middleware/errorHandler');
+app.use(errorHandler);
+app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/wallet', require('./routes/walletRoutes'));
+app.use('/api/trade', require('./routes/tradeRoutes'));
+app.use('/api/listing', require('./routes/listingRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/announcements', require('./routes/announcementRoutes'));
+app.use('/api/market', require('./routes/marketRoutes'));
+app.use('/api/notifications', require('./routes/notificationRoutes'));
+app.use('/api/security', require('./routes/securityRoutes'));
