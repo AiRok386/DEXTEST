@@ -1,5 +1,3 @@
-// 📁 routes/authRoutes.js
-
 const express = require('express');
 const router = express.Router();
 
@@ -8,16 +6,12 @@ const validateRequest = require('../middleware/validateRequest');
 const authMiddleware = require('../middleware/authMiddleware');
 
 // 🔐 Register
-router.post( '/register', validateRequest(['email', 'password', 'username']),
-  authController.register
-);
+router.post('/register', validateRequest(['email', 'password', 'username']), authController.register);
 
 // 🔐 Login
-router.post( '/login', validateRequest(['email', 'password']),
-  authController.login
-);
+router.post('/login', validateRequest(['email', 'password']), authController.login);
 
-// 🔓 Logout (user session)
+// 🔓 Logout
 router.post('/logout', authMiddleware, authController.logoutUser);
 
 module.exports = router;
