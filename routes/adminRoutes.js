@@ -19,7 +19,6 @@ const protect = [authMiddleware, adminOnly];
 // 📊 Admin Dashboard
 router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 
-
 // 📈 Token/Listing Management
 router.get('/listings', protect, listingController.getAllListings);
 router.post('/listings', protect, validateRequest(['name', 'symbol']), listingController.createListing);
