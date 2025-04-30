@@ -50,3 +50,7 @@ exports.approveWithdrawal = async (req, res) => {
 exports.logoutAdmin = (req, res) => {
   res.json({ message: 'Admin logged out' });
 };
+exports.getDashboard = async (req, res) => {
+  res.json({ message: 'Admin dashboard works' });
+};
+
