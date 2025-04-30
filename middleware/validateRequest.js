@@ -1,11 +1,19 @@
 // 📁 middleware/validateRequest.js
 
-module.exports = (fields = []) => {
+const validateRequest = (requiredFields = []) => {
   return (req, res, next) => {
-    const missing = fields.filter((field) => !req.body[field]);
-    if (missing.length) {
-      return res.status(400).json({ message: `Missing fields: ${missing.join(', ')}` });
+    const missingFields = requiredFields.filter(field => {
+      return !(field in req.body) || req.body[field] === '';
+    });
+
+    if (missingFields.length > 0) {
+      return res.status(400).json({
+        error: `Missing required fields: ${missingFields.join(', ')}`
+      });
     }
+
     next();
   };
 };
+
+module.exports = validateRequest;
