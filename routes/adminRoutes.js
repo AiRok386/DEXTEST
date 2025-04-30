@@ -1,5 +1,3 @@
-// 📁 routes/adminRoutes.js
-
 const express = require('express');
 const router = express.Router();
 
@@ -13,36 +11,34 @@ const authMiddleware = require('../middleware/authMiddleware');
 const adminOnly = require('../middleware/adminOnly');
 const validateRequest = require('../middleware/validateRequest');
 
-const protect = [authMiddleware, adminOnly];
-
 // 📊 Dashboard
-router.get('/dashboard', ...protect, adminController.getDashboard);
+router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 
 // 📈 Token Listings
-router.get('/listings', ...protect, listingController.getAllListings);
-router.post('/listings', ...protect, validateRequest(['name', 'symbol']), listingController.createListing);
-router.put('/listings/:id', ...protect, listingController.updateListing);
-router.patch('/listings/:id/approve', ...protect, listingController.approveListing);
-router.patch('/listings/:id/reject', ...protect, listingController.rejectListing);
+router.get('/listings', authMiddleware, adminOnly, listingController.getAllListings);
+router.post('/listings', authMiddleware, adminOnly, validateRequest(['name', 'symbol']), listingController.createListing);
+router.put('/listings/:id', authMiddleware, adminOnly, listingController.updateListing);
+router.patch('/listings/:id/approve', authMiddleware, adminOnly, listingController.approveListing);
+router.patch('/listings/:id/reject', authMiddleware, adminOnly, listingController.rejectListing);
 
 // 📢 Announcements
-router.post('/announcements', ...protect, validateRequest(['title', 'message']), announcementController.createAnnouncement);
-router.get('/announcements', ...protect, announcementController.getAllAnnouncements);
+router.post('/announcements', authMiddleware, adminOnly, validateRequest(['title', 'message']), announcementController.createAnnouncement);
+router.get('/announcements', authMiddleware, adminOnly, announcementController.getAllAnnouncements);
 
 // 💸 Wallets & Withdrawals
-router.get('/wallets', ...protect, walletController.getAllWallets);
-router.post('/wallets/freeze/:userId', ...protect, walletController.freezeWallet);
-router.post('/wallets/unfreeze/:userId', ...protect, walletController.unfreezeWallet);
-router.patch('/approve-withdrawal/:id', ...protect, adminController.approveWithdrawal); // 🔧 fixed duplicate
+router.get('/wallets', authMiddleware, adminOnly, walletController.getAllWallets);
+router.post('/wallets/freeze/:userId', authMiddleware, adminOnly, walletController.freezeWallet);
+router.post('/wallets/unfreeze/:userId', authMiddleware, adminOnly, walletController.unfreezeWallet);
+router.patch('/approve-withdrawal/:id', authMiddleware, adminOnly, adminController.approveWithdrawal);
 
 // 👥 Users
-router.get('/users', ...protect, userController.getAllUsers);
-router.get('/users/:id', ...protect, userController.getUserById);
-router.patch('/users/:id/suspend', ...protect, userController.suspendUser);
-router.patch('/users/:id/activate', ...protect, userController.activateUser);
-router.patch('/users/:id/kyc', ...protect, userController.verifyKYC);
+router.get('/users', authMiddleware, adminOnly, userController.getAllUsers);
+router.get('/users/:id', authMiddleware, adminOnly, userController.getUserById);
+router.patch('/users/:id/suspend', authMiddleware, adminOnly, userController.suspendUser);
+router.patch('/users/:id/activate', authMiddleware, adminOnly, userController.activateUser);
+router.patch('/users/:id/kyc', authMiddleware, adminOnly, userController.verifyKYC);
 
 // 🚪 Logout
-router.post('/logout', ...protect, adminController.logoutAdmin);
+router.post('/logout', authMiddleware, adminOnly, adminController.logoutAdmin);
 
 module.exports = router;
