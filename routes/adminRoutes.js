@@ -18,6 +18,7 @@ const protect = [authMiddleware, adminOnly];
 
 // 📊 Admin Dashboard
 router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
+router.get('/something', authMiddleware, adminOnly, adminController.SOME_HANDLER);
 
 // 📈 Token/Listing Management
 router.get('/listings', protect, listingController.getAllListings);
