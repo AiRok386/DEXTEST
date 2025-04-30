@@ -1,3 +1,5 @@
+// 📁 routes/adminRoutes.js
+
 const express = require('express');
 const router = express.Router();
 
@@ -9,13 +11,12 @@ const userController = require('../controllers/userController');
 
 const authMiddleware = require('../middleware/authMiddleware');
 const adminOnly = require('../middleware/adminOnly');
-const validateRequest = require('../middleware/validateRequest'); // ✅ this must exist
+const validateRequest = require('../middleware/validateRequest');
 
 // 📊 Dashboard
 router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 
 // 📈 Token Listings
-router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
 router.post('/listings', authMiddleware, adminOnly, validateRequest(['name', 'symbol']), listingController.createListing);
 router.put('/listings/:id', authMiddleware, adminOnly, listingController.updateListing);
 router.patch('/listings/:id/approve', authMiddleware, adminOnly, listingController.approveListing);
@@ -23,7 +24,7 @@ router.patch('/listings/:id/reject', authMiddleware, adminOnly, listingControlle
 
 // 📢 Announcements
 router.post('/announcements', authMiddleware, adminOnly, validateRequest(['title', 'message']), announcementController.createAnnouncement);
-
+router.delete('/announcements/:id', authMiddleware, adminOnly, announcementController.deleteAnnouncement);
 
 // 💸 Wallets & Withdrawals
 router.get('/wallets', authMiddleware, adminOnly, walletController.getAllWallets);
