@@ -9,7 +9,7 @@ const userController = require('../controllers/userController');
 
 const authMiddleware = require('../middleware/authMiddleware');
 const adminOnly = require('../middleware/adminOnly');
-const validateRequest = require('../middleware/validateRequest');
+const validateRequest = require('../middleware/validateRequest'); // ✅ this must exist
 
 // 📊 Dashboard
 router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
