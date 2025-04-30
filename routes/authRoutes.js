@@ -8,16 +8,12 @@ const validateRequest = require('../middleware/validateRequest');
 const authMiddleware = require('../middleware/authMiddleware');
 
 // 🔐 Register
-router.post(
-  '/register',
-  validateRequest(['email', 'password', 'username']),
+router.post( '/register', validateRequest(['email', 'password', 'username']),
   authController.register
 );
 
 // 🔐 Login
-router.post(
-  '/login',
-  validateRequest(['email', 'password']),
+router.post( '/login', validateRequest(['email', 'password']),
   authController.login
 );
 
