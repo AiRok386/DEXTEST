@@ -45,6 +45,16 @@ exports.submitKYC = async (req, res) => {
   }
 };
 
+// 🧾 Get KYC Status
+exports.getKYCStatus = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('kyc');
+    res.status(200).json({ status: user.kyc?.status || 'not submitted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // 🔒 Account Freeze (Admin only)
 exports.freezeAccount = async (req, res) => {
   try {
