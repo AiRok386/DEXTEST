@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
     const user = new User({
       email,
       username,
-      password: hashed,
+      passwordHash: hashed,
       role: 'user',
     });
 
@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const match = await bcrypt.compare(password, user.password);
+    const match = await bcrypt.compare(password, user.passwordHash);
     if (!match) return res.status(401).json({ message: 'Invalid credentials' });
 
     const token = generateToken(user);
@@ -56,7 +56,6 @@ exports.login = async (req, res) => {
 };
 
 // 🔓 POST: Logout
-exports.logout = async (req, res) => {
-  // Client-side should delete the token. Just respond success.
+exports.logoutUser = async (req, res) => {
   res.json({ message: 'Logged out successfully' });
 };
