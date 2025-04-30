@@ -17,7 +17,8 @@ const validateRequest = require('../middleware/validateRequest');
 const protect = [authMiddleware, adminOnly];
 
 // 📊 Admin Dashboard
-router.get('/dashboard', protect, adminController.getDashboard);
+router.get('/dashboard', authMiddleware, adminOnly, adminController.getDashboard);
+
 
 // 📈 Token/Listing Management
 router.get('/listings', protect, listingController.getAllListings);
